@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div class='container' >
+		<div class='row'>
+		<div class='container'>
+		<h3 id='awesomeGuarantee'>Welcome to MEAN Tea!</h3>
+		<h1 id='welcomeHeader'> <em> <strong>My Shopping Bag </strong></em></h1>
+		<nav class="navbar navbar-default">
+  			<div class="container-fluid">
+      			<ul class="nav navbar-nav">
+        			<li><a href="/#/">Home </a></li>
+        			<li><a href="/#/">About</a></li>
+        			<li><a href="/#/">Contact</a></li>
+        		</ul>
+        	</div>
+		</nav>
+		<div id='searchOptions'>
+			Search by Category: 
+			<select id='dropDown' ng-model='tea.dropDown'>
+				<!-- <option value="empty"> </option> -->
+				<option value="awesome">Awesome</option>
+				<option value="dark">Dark</option>
+				<option value="dry">Dry</option>
+				<option value="lucid">Lucid</option>
+				<option value="hot">Hot</option>
+				<option value="warm">Warm</option>
+				<option value="cold">Cold</option>
+				<option value="winter">Winter</option>
+				<option value="spring">Spring</option>
+				<option value="summer">Summer</option>	
+			</select>
+			Search by Name:
+			<input type="text" id="searchBox" ng-model='search.box'>
+			
+
+			<table class="table table-bordered" id='cartTable'>
+				<tr>
+					<th>Product</th>
+					<th>Quantity</th>
+					<th>Subtotal</th>
+					<th>Edit/Remove</th>
+				</tr>
+				<tr ng-repeat='flavors in getOrder'>					
+					<td> 
+					{{flavors.tea.name}}
+					<br>
+					<img ng-src='{{flavors.tea.imageUrl}}'>
+					<br>
+					<h5>Caffeine Scale: {{flavors.tea.caffeineScale}}</h5>
+					<h5>Ingredients: {{flavors.tea.ingredients}}</h5>
+					<h5>Rating: {{flavors.tea.rating}}</h5>
+					</td>
+
+
+					<td>
+					<h5 ng-hide='editMode' ng-model='flavors.quantity'>{{flavors.quantity}}</h5>
+
+                        <!-- <form class="form-inline" ng-submit="" ng-show="showTheForm"> -->
+                        <input type="number" ng-show='editMode' name="quantity" min="1" max="10"  ng-model="flavors.quantity">
+                        <!-- </form> -->
+	                </td>
+	                <td ng-model='flavors.tea.price'> {{(flavors.quantity) * (flavors.tea.price)}}
+					</td>
+	                <!-- <td>{{getSubTotal()/100 | currency}}</td> -->
+	                <td>
+	                	<span>
+
+		                    <button type="submit" class="btn btn-warning" ng-hide='editMode' ng-click="editMode = true; editItem(flavors)">Edit
+		                    </button>
+	                    </span>
+	                    <span>
+	                    	<button type="submit" class="btn btn-warning" ng-show='editMode' ng-click="editMode = false; addToBag(quantity)">Save
+	                    	</button>
+	                    </span>
+	                    <button type="submit" class="btn btn-danger" ng-click="removeItem(order)">Remove                 
+	                    </button>
+	                </td>	
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

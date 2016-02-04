@@ -1,0 +1,81 @@
+<div class='container'>
+		<h3 id='awesomeGuarantee'>Guaranteed Awesome!</h3>
+		<h1 id='welcomeHeader'> <em> <strong>Welcome to MEAN Tea!</strong></em></h1>
+		<nav class="navbar navbar-default">
+  			<div class="container-fluid">
+      			<ul class="nav navbar-nav">
+        			<li><a href="/#/">Home </a></li>
+        			<li><a href="/#/">About</a></li>
+        			<li><a href="/#/">Contact</a></li>
+        		</ul>
+        	</div>
+		</nav>
+		<div id='searchOptions'>
+			Search by Category: 
+			<select id='dropDown' ng-model='tea.dropDown'>
+				<option value="awesome">Awesome</option>
+				<option value="dark">Dark</option>
+				<option value="dry">Dry</option>
+				<option value="lucid">Lucid</option>
+				<option value="hot">Hot</option>
+				<option value="warm">Warm</option>
+				<option value="cold">Cold</option>
+				<option value="winter">Winter</option>
+				<option value="spring">Spring</option>
+				<option value="summer">Summer</option>	
+			</select>
+			Search by Name:
+			<input type="text" id="searchBox" ng-model='search.box'>
+			
+
+		<!-- CART BUTTON -->
+			<button class="btn btn-danger" type="button" id='cartButton' ng-click='displayBag()'>
+  				Checkout | 
+  					<span ng-if='getBagSize() >0'> {{getBagSize()}} item </span>
+  					<span ng-if='getBagSize() === 0'> Empty!</span>
+  				</button>
+
+			
+		<table class="table table-bordered" id='teaTable'>
+			<tr>
+				<th>Tea</th>
+				<th>Information
+					<div id='priceSortLabel'>Sort by Price:
+						<select id='priceDropDown' ng-model='price.sort'>
+							<option value="empty"></option>
+							<option value="-price">High</option>
+							<option value="price">Low</option>
+						</select>
+					</div>
+				</th>
+   			</tr>
+			<tr ng-repeat='tea in teas.selections |filter:tea.dropDown | filter:search.box | orderBy: price.sort' >
+
+				<td> 
+					<img ng-src='{{tea.imageUrl}}'>
+				</td>
+				<td>
+					<h3>{{tea.name}}
+					<span id='quantityLabel'>Quantity:
+							<select id='quantityDropdown' ng-model='quantity'>
+								<option ng-repeat="quantity in [1,2,3,4,5,6,7,8,9,10]">{{quantity}}</option>
+							</select>
+							<button class="btn btn-warning" type="button" id='addButton' ng-click="addToBag(tea,quantity)">Add To Bag
+							</button>
+						</span>
+					</h3>
+					
+					<h5 ng-model='tea.price'>Price: {{tea.price /100| currency }}</h5>
+					<h5>Caffeine Scale: {{tea.caffeineScale}}</h5>
+					<h5>Ingredients: {{tea.ingredients}}</h5>
+					<h5>Rating: {{tea.rating}}</h5>
+					<h5>In Stock?: {{tea.inStock ? "Yes":"No"}}</h5>
+					<h5>Categories: 
+					<ul>
+						<li ng-repeat='category in tea.categories'>{{category}}</li>
+					</ul>
+					</h5>
+				</td>
+			</tr>
+		</table>
+	</div>
